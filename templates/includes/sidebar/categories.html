@@ -7,11 +7,11 @@
   <ul class="list-group" id="categories">
     {% for cat, null in categories %}
     <li class="list-group-item">
+      {%- if not DISABLE_SIDEBAR_TITLE_ICONS -%}
+      <i class="icon-folder"></i>&nbsp;
+      {%- endif -%}
       <a href="{{ SITEURL }}/{{ cat.url }}">
-        {%- if not DISABLE_SIDEBAR_TITLE_ICONS -%}
-        <i class="icon-folder"></i>
-        {%- endif -%}
-        {{- cat -}}
+          {{- cat -}}
       </a>
     </li>
     {% endfor %}
