@@ -105,6 +105,8 @@
     <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/stork-dark.css">
     {% endif %}
 
+    <!-- For pelican-datatable plugin support -->
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/glyphicons.css">
     {% if article %}
         {% if article.styles %}
             {% for style in article.styles %}
@@ -119,6 +121,7 @@
             {% endfor %}
         {% endif %}
     {% endif %}
+     <!-- End : pelican-datatable plugin support -->
 </head>
 
 <body>
@@ -221,6 +224,8 @@
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bodypadding.js"></script>
 {% endif %}
 
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/cern-formatters.js"></script>
+
 {% if SEARCH_STORK_ENABLED %}
 <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/stork.js"></script>
 <script>
@@ -254,6 +259,8 @@
         {% endfor %}
     {% endif %}
 {% endif %}
+
+
 
 {% block scripts %}{% endblock %}
 </body>
