@@ -100,7 +100,27 @@
               title="{{ SITENAME }} {{ category }} ATOM Feed"/>
     {% endif %}
 
+    {% if SEARCH_STORK_ENABLED %}
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/stork.css">
+    <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/stork-dark.css">
+    {% endif %}
+
+    {% if article %}
+        {% if article.styles %}
+            {% for style in article.styles %}
+    {{ style }}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+    {% if page %}
+        {% if page.styles %}
+            {% for style in page.styles %}
+    {{ style }}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
 </head>
+
 <body>
 
 <nav class="navbar navbar-expand-md {% if BOOTSTRAP_NAVBAR_INVERSE %}navbar-inverse bg-inverse{% else %}navbar-light bg-faded{% endif %} fixed-top" role="navigation">
@@ -192,12 +212,24 @@
 
 <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
 
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/tether.min.js"></script>
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
 
 {% if BANNER %}
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bodypadding.js"></script>
 {% endif %}
+
+{% if SEARCH_STORK_ENABLED %}
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/stork.js"></script>
+<script>
+    stork.initialize("{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/stork.wasm")
+    stork.downloadIndex("sitesearch", "{{ SITEURL }}/search-index.st")
+    stork.attach("sitesearch")
+</script>
+{% endif %}
+
 {% include 'includes/sidebar/github-js.html' %}
 {% include 'includes/disqus_script.html' %}
 {% include 'includes/ga.html' %}
@@ -205,6 +237,22 @@
 
 {% if 'liquid_tags.notebook' in PLUGINS %}
     {% include 'includes/liquid_tags_nb_footer.html' %}
+{% endif %}
+
+{% if article %}
+    {% if article.scripts %}
+        {% for script in article.scripts %}
+{{ script }}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+{% if page %}
+    {% if page.scripts %}
+        {% for script in page.scripts %}
+{{ script }}
+        {% endfor %}
+    {% endif %}
 {% endif %}
 
 {% block scripts %}{% endblock %}
